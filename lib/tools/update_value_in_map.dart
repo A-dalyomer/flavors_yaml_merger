@@ -1,17 +1,10 @@
 /// searches for specific key in a nested map and append a new value to it
 
-enum NestedMapEditMode { search, replace }
-
 Map<dynamic, dynamic> updateValueInNestedMap({
   required dynamic key,
   required Map<dynamic, dynamic> map,
   dynamic newValue,
-  NestedMapEditMode nestedMapEditMode = NestedMapEditMode.replace,
 }) {
-  assert(
-    nestedMapEditMode == NestedMapEditMode.replace && newValue == null,
-    "Replaced value must be provided in replace mode",
-  );
   for (var entry in map.entries) {
     var currentKey = entry.key;
     var currentValue = entry.value;
