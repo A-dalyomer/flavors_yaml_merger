@@ -22,7 +22,7 @@ void main(List<String> args) {
     flavorYamlPath = 'pubspec_${arguments.flavorName}.yaml';
   }
 
-  if (arguments.matherState) {
+  if (arguments.matcherState) {
     matchFlavorFile(
       flavorName: arguments.flavorName,
       flavorYamlPath: flavorYamlPath,

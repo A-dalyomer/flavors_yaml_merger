@@ -2,13 +2,13 @@ import 'package:args/args.dart';
 
 class ArgumentsModel {
   ArgumentsModel({
-    required this.matherState,
+    required this.matcherState,
     required this.flavorName,
     this.flavorYamlPath,
   });
   late final String flavorName;
   late final String? flavorYamlPath;
-  late final bool matherState;
+  late final bool matcherState;
 
   factory ArgumentsModel.parse(List<String> arguments) {
     final parser = ArgParser()
@@ -19,7 +19,7 @@ class ArgumentsModel {
     ArgResults argResults = parser.parse(arguments);
     print(argResults['flavor_name']);
     return ArgumentsModel(
-      matherState: argResults['matcher'],
+      matcherState: argResults['matcher'],
       flavorName: argResults['flavor_name'],
       flavorYamlPath: argResults['flavor_path'],
     );
