@@ -40,7 +40,4 @@ void main(List<String> args) {
   flavors_yaml_merger.FlavorsMerger flavorsMerger =
       flavors_yaml_merger.FlavorsMerger();
   flavorsMerger.mergePubspec(flavorYamlPath);
-
-  // /// Restore main pubspec.yaml
-  // fileManager.restorePubspec();
 }

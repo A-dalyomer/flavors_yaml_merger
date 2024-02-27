@@ -6,6 +6,7 @@ void matchFlavorFile({
   required String flavorYamlPath,
   required String flavorName,
 }) {
+  stdout.writeln("Matching $flavorName yaml");
   try {
     /// Load the both working yaml files
     List<String> mainPubspecLines = File('pubspec.yaml').readAsLinesSync();
@@ -16,6 +17,7 @@ void matchFlavorFile({
       loadYaml(File(flavorYamlPath).readAsStringSync()),
     );
 
+    /// Store in match state to avoid the lines skipper
     bool isInMatching = false;
 
     for (int i = 0; i < mainPubspecLines.length; i++) {
@@ -23,17 +25,15 @@ void matchFlavorFile({
         continue;
       }
 
-      print('matching ${mainPubspecLines[i]}');
-
+      /// Stop the in matcher state and skip line on non targeted flavors header
       if (mainPubspecLines[i]
           .trimLeft()
           .startsWith(RegExp(r"^# flavor(?!.*\b" + flavorName + r"\b).*"))) {
-        print('skipped ${mainPubspecLines[i]}');
         isInMatching = false;
         continue;
       }
 
-      /// Skip non flavor lines
+      /// Skip non flavor lines and end script if file is ended
       if (!isInMatching) {
         while (!mainPubspecLines[i]
             .trimLeft()
@@ -51,8 +51,8 @@ void matchFlavorFile({
       }
 
       isInMatching = true;
-      print('in matching ${mainPubspecLines[i]}');
 
+      /// Line match state in flavor file
       bool lineIFound = false;
       for (int j = 0; j < flavorPubspecLines.length; j++) {
         bool inNextSection = false;
@@ -65,7 +65,6 @@ void matchFlavorFile({
         if (inNextSection) break;
         if (flavorPubspecLines[j].trimLeft() ==
             mainPubspecLines[i].trimLeft()) {
-          print('found line ${flavorPubspecLines[j]}');
           lineIFound = true;
           break;
         }
@@ -77,7 +76,7 @@ void matchFlavorFile({
       }
     }
   } catch (exception) {
-    stdout.writeln(exception);
+    stderr.writeln(exception);
     exit(2);
   }
 }
