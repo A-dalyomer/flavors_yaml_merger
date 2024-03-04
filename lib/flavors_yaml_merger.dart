@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flavors_yaml_merger/tools/file_manager.dart';
-import 'service/parse_yaml.dart';
 import 'tools/update_value_in_map.dart';
 import 'package:yaml/yaml.dart';
 
@@ -31,10 +30,6 @@ class FlavorsMerger {
       );
     });
 
-    /// Parse the result yaml map to yaml format
-    String yaml = parseYamlContent(mainPubspec);
-
-    /// Export the result file
-    File('pubspaec.yaml').writeAsStringSync(yaml);
+    _fileManager.writePubspecFile("pubspec.yaml", mainPubspec);
   }
 }
