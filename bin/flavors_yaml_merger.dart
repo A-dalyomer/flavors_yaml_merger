@@ -30,10 +30,11 @@ void main(List<String> args) {
     );
   }
 
-  FileManager fileManager = FileManager();
-
   /// Backup the main yaml for restore later
-  fileManager.backupPubspec();
+  if (arguments.backupRequired) {
+    FileManager fileManager = FileManager();
+    fileManager.backupPubspec();
+  }
 
   /// Merge the flavor yaml
   log("merging ${flavorYamlPath.split('/').last}");
