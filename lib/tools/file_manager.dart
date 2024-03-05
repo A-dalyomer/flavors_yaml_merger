@@ -14,22 +14,24 @@ class FileManager {
     }
   }
 
-  void writePubspecFile(String fileName, Map<dynamic, dynamic> content) {
+  void writePubspecFile(String filePath, Map<dynamic, dynamic> content) {
     try {
       var yamlWriter = YamlWriter();
       var yamlDoc = yamlWriter.write(content);
-      File('pubspec.yaml').writeAsStringSync(yamlDoc);
+      File(filePath).writeAsStringSync(yamlDoc);
     } catch (exception) {
-      stderr.writeln("Couldn't read $fileName");
+      stderr.writeln("Couldn't write file at $filePath");
       stderr.writeln(exception);
       exit(2);
     }
   }
 
   /// Backup the pubspec.yaml
-  void backupPubspec() {
+  void backupPubspec({String? filePath, String? targetPath}) {
     try {
-      File('pubspec.yaml').copySync('pubspec_backup.yaml');
+      File(filePath ?? 'pubspec.yaml').copySync(
+        targetPath ?? 'pubspec_backup.yaml',
+      );
     } catch (exception) {
       stderr.writeln("Couldn't backup main pubspec.yaml");
       stderr.writeln(exception);
@@ -37,9 +39,20 @@ class FileManager {
   }
 
   /// Restore pubspec.yaml from backup file
-  void restorePubspec() {
+  void restorePubspec({String? sourcePath, String? targetPath}) {
     try {
-      File('pubspec_backup.yaml').renameSync('pubspec.yaml');
+      File(sourcePath ?? 'pubspec_backup.yaml')
+          .renameSync(targetPath ?? 'pubspec.yaml');
+    } catch (exception) {
+      stderr.writeln("Couldn't restore main pubspec.yaml");
+      stderr.writeln(exception);
+    }
+  }
+
+  /// Delete specified file
+  void deletePubspec({required String targetPath}) {
+    try {
+      File(targetPath).deleteSync();
     } catch (exception) {
       stderr.writeln("Couldn't restore main pubspec.yaml");
       stderr.writeln(exception);

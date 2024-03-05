@@ -5,17 +5,24 @@ import 'tools/update_value_in_map.dart';
 import 'package:yaml/yaml.dart';
 
 class FlavorsMerger {
+  FlavorsMerger({
+    required this.mainPubspecYaml,
+    required this.flavorYamFile,
+  });
+  final File mainPubspecYaml;
+  final File flavorYamFile;
+
   /// Create an instance of file manager
   final FileManager _fileManager = FileManager();
 
   /// start the merging progress with the provided flavor yaml file path
-  void mergePubspec(String flavorYamlPath) {
+  void mergePubspec() {
     /// Load the both working yaml files
     Map<dynamic, dynamic> mainPubspec = Map.of(
-      loadYaml(File('pubspec.yaml').readAsStringSync()),
+      loadYaml(mainPubspecYaml.readAsStringSync()),
     );
     Map<dynamic, dynamic> flavorPubspec = Map.of(
-      loadYaml(File(flavorYamlPath).readAsStringSync()),
+      loadYaml(flavorYamFile.readAsStringSync()),
     );
 
     /// Backup the main yaml for restore later
@@ -30,6 +37,6 @@ class FlavorsMerger {
       );
     });
 
-    _fileManager.writePubspecFile("pubspec.yaml", mainPubspec);
+    _fileManager.writePubspecFile(mainPubspecYaml.path, mainPubspec);
   }
 }

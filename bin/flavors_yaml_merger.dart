@@ -26,6 +26,7 @@ void main(List<String> args) {
     matchFlavorFile(
       flavorName: arguments.flavorName,
       flavorYamlPath: flavorYamlPath,
+      mainYamlPath: 'pubspec.yaml',
     );
   }
 
@@ -38,6 +39,9 @@ void main(List<String> args) {
   /// Merge the flavor yaml
   log("merging ${flavorYamlPath.split('/').last}");
   flavors_yaml_merger.FlavorsMerger flavorsMerger =
-      flavors_yaml_merger.FlavorsMerger();
-  flavorsMerger.mergePubspec(flavorYamlPath);
+      flavors_yaml_merger.FlavorsMerger(
+    mainPubspecYaml: File('pubspec.yaml'),
+    flavorYamFile: File(flavorYamlPath),
+  );
+  flavorsMerger.mergePubspec();
 }

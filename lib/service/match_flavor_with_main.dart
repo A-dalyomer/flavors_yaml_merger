@@ -8,11 +8,12 @@ import '../tools/match_string_blocks.dart';
 void matchFlavorFile({
   required String flavorYamlPath,
   required String flavorName,
+  required String mainYamlPath,
 }) {
   stdout.writeln("Matching $flavorName yaml");
   try {
     /// Load workspace yaml file as lines
-    List<String> mainPubspecLines = File('pubspec.yaml').readAsLinesSync();
+    List<String> mainPubspecLines = File(mainYamlPath).readAsLinesSync();
 
     /// Load flavor yaml file
     Map<dynamic, dynamic> flavorPubspec = Map.of(
