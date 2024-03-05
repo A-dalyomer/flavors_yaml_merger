@@ -1,44 +1,68 @@
 import 'dart:io';
+
+import 'package:flavors_yaml_merger/service/match_flavor_with_main.dart';
 import 'package:flavors_yaml_merger/tools/file_manager.dart';
 import 'package:flavors_yaml_merger/flavors_yaml_merger.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 
 void main() {
+  final String mocksPath = 'test/yaml_mocks/';
+  final backupPath = '$mocksPath/pubspec_backup.yaml';
+  final File mainYamlMock = File('$mocksPath/main_mock.yaml');
+  final File flavorYamlMock = File('$mocksPath/flavor_mock.yaml');
+  FileManager fileManager = FileManager();
+
   group('Pubspec Editing Tests', () {
-    // Test backupPubspec function
     test('Backup pubspec.yaml', () {
-      FileManager fileManager = FileManager();
-      fileManager.backupPubspec();
-      expect(File('pubspec_backup.yaml').existsSync(), true);
+      fileManager.backupPubspec(
+        filePath: mainYamlMock.path,
+        targetPath: backupPath,
+      );
+      expect(File(backupPath).existsSync(), true);
     });
 
-    // Test restorePubspec function
     test('Restore pubspec.yaml', () {
-      FileManager fileManager = FileManager();
-      fileManager.restorePubspec();
-      expect(File('pubspec_backup.yaml').existsSync(), false);
+      fileManager.restorePubspec(
+        sourcePath: backupPath,
+        targetPath: mainYamlMock.path,
+      );
+      expect(File(backupPath).existsSync(), false);
     });
 
-    test('Update pubspec.yaml with flavor', () {
-      var flavorYamlContent = '''
-        dependencies:
-          flutter:
-            sdk: flutter
-          cupertino_icons: ^1.0.2
-      ''';
-      File('flavor_mock.yaml').writeAsStringSync(flavorYamlContent);
+    test('Update pubspec.yaml values from flavor', () {
+      fileManager.backupPubspec(
+        filePath: mainYamlMock.path,
+        targetPath: backupPath,
+      );
+      FlavorsMerger flavorsMerger = FlavorsMerger(
+        mainPubspecYaml: mainYamlMock,
+        flavorYamFile: flavorYamlMock,
+      );
+      flavorsMerger.mergePubspec();
+      var updatedPubspec = loadYaml(mainYamlMock.readAsStringSync());
+      expect(updatedPubspec['dependencies'], isNot(equals(null)));
+      print(updatedPubspec['dependencies']);
+      print(updatedPubspec);
+      expect(updatedPubspec['dependencies']['args'], '^2.4.2');
+      fileManager.deletePubspec(targetPath: backupPath);
+    });
 
-      // Update pubspec.yaml with the mock flavor
-      FlavorsMerger flavorsMerger = FlavorsMerger();
-      flavorsMerger.mergePubspec('flavor_mock.yaml');
+    test('flavor yaml matcher', () {
+      FlavorsMerger merger = FlavorsMerger(
+        mainPubspecYaml: mainYamlMock,
+        flavorYamFile: flavorYamlMock,
+      );
+      merger.mergePubspec();
+    });
 
-      // Verify that the values from the flavor are added to pubspec.yaml
-      var updatedPubspec = loadYaml(File('pubspec.yaml').readAsStringSync());
-      expect(updatedPubspec['dependencies']['cupertino_icons'], '^1.0.0');
-
-      // Clean up the mock flavor YAML file
-      File('flavor_mock.yaml').deleteSync();
+    test('matcher test', () {
+      flavorMatcher() => matchFlavorFile(
+            flavorName: "mock",
+            flavorYamlPath: flavorYamlMock.path,
+            mainYamlPath: mainYamlMock.path,
+          );
+      expect(flavorMatcher, isNot(throwsException));
     });
   });
 }
