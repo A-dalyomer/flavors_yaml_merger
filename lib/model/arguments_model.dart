@@ -12,7 +12,7 @@ class ArgumentsModel {
 
   factory ArgumentsModel.parse(List<String> arguments) {
     final parser = ArgParser()
-      ..addFlag("matcher", abbr: "m", defaultsTo: true)
+      ..addFlag("matcher", abbr: "m", defaultsTo: false)
       ..addOption("flavor_name", abbr: "f", mandatory: true)
       ..addOption("flavor_path", abbr: "p");
 
