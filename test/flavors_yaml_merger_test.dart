@@ -20,9 +20,14 @@ void main() {
         targetPath: backupPath,
       );
       expect(File(backupPath).existsSync(), true);
+      fileManager.deletePubspec(targetPath: backupPath);
     });
 
     test('Restore pubspec.yaml', () {
+      fileManager.backupPubspec(
+        filePath: mainYamlMock.path,
+        targetPath: backupPath,
+      );
       fileManager.restorePubspec(
         sourcePath: backupPath,
         targetPath: mainYamlMock.path,
@@ -42,8 +47,6 @@ void main() {
       flavorsMerger.mergePubspec();
       var updatedPubspec = loadYaml(mainYamlMock.readAsStringSync());
       expect(updatedPubspec['dependencies'], isNot(equals(null)));
-      print(updatedPubspec['dependencies']);
-      print(updatedPubspec);
       expect(updatedPubspec['dependencies']['args'], '^2.4.2');
       fileManager.deletePubspec(targetPath: backupPath);
     });

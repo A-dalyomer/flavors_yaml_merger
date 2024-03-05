@@ -25,9 +25,6 @@ class FlavorsMerger {
       loadYaml(flavorYamFile.readAsStringSync()),
     );
 
-    /// Backup the main yaml for restore later
-    _fileManager.backupPubspec();
-
     /// Assign the flavor yaml values to the main yaml values
     flavorPubspec.forEach((section, values) {
       mainPubspec = updateValueInNestedMap(

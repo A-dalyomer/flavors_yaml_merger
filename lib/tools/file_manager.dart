@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:yaml/yaml.dart';
 import 'package:yaml_writer/yaml_writer.dart';
@@ -29,6 +30,7 @@ class FileManager {
   /// Backup the pubspec.yaml
   void backupPubspec({String? filePath, String? targetPath}) {
     try {
+      log("Backing up $filePath");
       File(filePath ?? 'pubspec.yaml').copySync(
         targetPath ?? 'pubspec_backup.yaml',
       );

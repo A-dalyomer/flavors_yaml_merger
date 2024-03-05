@@ -32,8 +32,7 @@ void main(List<String> args) {
 
   FileManager fileManager = FileManager();
 
-  /// Backup main pubspec.yaml
-  log("Backing up pubspec.yaml");
+  /// Backup the main yaml for restore later
   fileManager.backupPubspec();
 
   /// Merge the flavor yaml
