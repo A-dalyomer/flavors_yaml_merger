@@ -3,6 +3,10 @@ description: A package to help building flavored apps without the need to manual
 version: 0.1.0
 # repository: https://github.com/my_org/my_repo
 
+executables:
+  flavors_yaml_manager:
+  restore_backup_yaml:
+
 environment:
   sdk: ^3.2.5
 
