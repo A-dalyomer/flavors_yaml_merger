@@ -1,69 +1,40 @@
-import 'dart:io';
-
 import 'package:flavors_yaml_merger/service/match_flavor_with_main.dart';
 import 'package:flavors_yaml_merger/tools/file_manager.dart';
 import 'package:flavors_yaml_merger/flavors_yaml_merger.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 
+import 'test_constants/test_constants.dart';
+
 void main() {
-  final String mocksPath = 'test/yaml_mocks/';
-  final backupPath = '$mocksPath/pubspec_backup.yaml';
-  final File mainYamlMock = File('$mocksPath/main_mock.yaml');
-  final File flavorYamlMock = File('$mocksPath/flavor_mock.yaml');
   FileManager fileManager = FileManager();
 
-  group('Pubspec Editing Tests', () {
-    test('Backup pubspec.yaml', () {
-      fileManager.backupPubspec(
-        filePath: mainYamlMock.path,
-        targetPath: backupPath,
-      );
-      expect(File(backupPath).existsSync(), true);
-      fileManager.deletePubspec(targetPath: backupPath);
-    });
-
-    test('Restore pubspec.yaml', () {
-      fileManager.backupPubspec(
-        filePath: mainYamlMock.path,
-        targetPath: backupPath,
-      );
-      fileManager.restorePubspec(
-        sourcePath: backupPath,
-        targetPath: mainYamlMock.path,
-      );
-      expect(File(backupPath).existsSync(), false);
-    });
-
+  group('Merger and matcher Tests', () {
     test('Update pubspec.yaml values from flavor', () {
       fileManager.backupPubspec(
-        filePath: mainYamlMock.path,
-        targetPath: backupPath,
+        filePath: TestConstants.mainYamlMock.path,
+        targetPath: TestConstants.backupPath,
       );
       FlavorsMerger flavorsMerger = FlavorsMerger(
-        mainPubspecYaml: mainYamlMock,
-        flavorYamFile: flavorYamlMock,
+        mainPubspecYaml: TestConstants.mainYamlMock,
+        flavorYamFile: TestConstants.flavorYamlMock,
       );
       flavorsMerger.mergePubspec();
-      var updatedPubspec = loadYaml(mainYamlMock.readAsStringSync());
+      var updatedPubspec =
+          loadYaml(TestConstants.mainYamlMock.readAsStringSync());
       expect(updatedPubspec['dependencies'], isNot(equals(null)));
       expect(updatedPubspec['dependencies']['args'], '^2.4.2');
-      fileManager.deletePubspec(targetPath: backupPath);
-    });
-
-    test('flavor yaml matcher', () {
-      FlavorsMerger merger = FlavorsMerger(
-        mainPubspecYaml: mainYamlMock,
-        flavorYamFile: flavorYamlMock,
+      fileManager.restorePubspec(
+        sourcePath: TestConstants.backupPath,
+        targetPath: TestConstants.mainYamlMock.path,
       );
-      merger.mergePubspec();
     });
 
     test('matcher test', () {
       flavorMatcher() => matchFlavorFile(
             flavorName: "mock",
-            flavorYamlPath: flavorYamlMock.path,
-            mainYamlPath: mainYamlMock.path,
+            flavorYamlPath: TestConstants.flavorYamlMock.path,
+            mainYamlPath: TestConstants.mainYamlMock.path,
           );
       expect(flavorMatcher, isNot(throwsException));
     });
