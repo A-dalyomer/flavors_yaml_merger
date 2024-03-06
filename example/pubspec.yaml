@@ -1,0 +1,17 @@
+name: 'name'
+dependencies:
+  # flavor mock
+  args: ^2.4.2
+  yaml: ^3.1.2
+  yaml_writer: ^2.0.0
+  # end flavor mock
+
+fonts: 
+  - family: 'inter'
+    fonts: 
+      - asset: 'assets/common/fonts/inter/inter-Regular.ttf'
+        weight: 300
+      - asset: 'assets/common/fonts/inter/inter-Regular.ttf'
+        weight: 400
+      - asset: 'assets/common/fonts/inter/inter-Regular.ttf'
+        weight: 500
