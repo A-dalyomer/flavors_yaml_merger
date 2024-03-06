@@ -1,4 +1,8 @@
 name: 'name'
+
+environment:
+  sdk: ^3.2.5
+
 dependencies:
   # flavor mock
   args: ^2.4.2
