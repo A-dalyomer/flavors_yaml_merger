@@ -1,6 +1,6 @@
 name: flavors_yaml_merger
 description: A package to help building flavored apps without the need to manually remove other flavor content from yaml file.
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/A-dalyomer/flavors_yaml_merger
 
 executables:
