@@ -5,6 +5,16 @@ import 'package:yaml_writer/yaml_writer.dart';
 
 import '../tools/match_string_blocks.dart';
 
+/// Match the main pubspec.yaml in the flavor blocks with the provided
+/// flavor yaml file.
+///
+/// The [flavorYamlPath] represents the file path of the flavor yaml file
+/// to be matched with the main one.
+///
+/// The [flavorName] is used inside the matcher to find the flavor related
+/// blocks.
+///
+/// The [mainYamlPath] represents the file path of the main yaml file.
 void matchFlavorFile({
   required String flavorYamlPath,
   required String flavorName,

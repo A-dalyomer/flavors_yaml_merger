@@ -4,6 +4,10 @@ import 'package:flavors_yaml_merger/tools/file_manager.dart';
 import 'tools/update_value_in_map.dart';
 import 'package:yaml/yaml.dart';
 
+/// Holds the merger logic for merging flavor blocks in the main pubspec.yaml
+///
+/// The [mainPubspecYaml] is actually the project pubspec.yaml.
+/// The [flavorYamFile] represents the flavor yaml file to be merged in main.
 class FlavorsMerger {
   FlavorsMerger({
     required this.mainPubspecYaml,
@@ -34,6 +38,7 @@ class FlavorsMerger {
       );
     });
 
+    /// Done merging and write the new file to replace the old one
     _fileManager.writePubspecFile(mainPubspecYaml.path, mainPubspec);
   }
 }

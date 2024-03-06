@@ -7,6 +7,7 @@ import 'package:flavors_yaml_merger/tools/file_manager.dart';
 import 'package:flavors_yaml_merger/flavors_yaml_merger.dart'
     as flavors_yaml_merger;
 
+/// Start the merger process with the provided [args] configurations.
 void main(List<String> args) {
   /// Successful exit code at start
   exitCode = 0;
