@@ -45,6 +45,10 @@ dart run flavors_yaml_manager -f <flavor>
 dart run flavors_yaml_manager --flavor_name <flavor>
 ```
 
+Run this command to restore your main `pubspec.yaml`
+```console  
+dart run flavors_yaml_merger:restore_backup_yaml
+```
 
 Use the -m flag to enable yaml matcher:
 ```console  
