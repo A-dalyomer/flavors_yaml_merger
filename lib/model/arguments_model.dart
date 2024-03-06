@@ -1,5 +1,19 @@
 import 'package:args/args.dart';
 
+/// DTO for holding launch command parameters
+///
+/// The [matcherState] sets matcher configurations
+/// when set to true the merger will match yaml content before merging.
+/// default value is false
+///
+/// The [flavorName] must match your app flavor name for retrieving the
+/// related yaml for the passed flavor.
+/// however, you can pass the optional [flavorYamlPath] parameter
+/// to override the [flavorName] and pass custom flavor yaml name and path
+///
+/// The [backupRequired] sets backup configuration
+/// when set to false it will disable backup of main yaml file
+/// default value is true
 class ArgumentsModel {
   ArgumentsModel({
     required this.matcherState,

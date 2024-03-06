@@ -1,5 +1,4 @@
 /// searches for specific key in a nested map and append a new value to it
-
 Map<dynamic, dynamic> updateValueInNestedMap({
   required dynamic key,
   required Map<dynamic, dynamic> map,
