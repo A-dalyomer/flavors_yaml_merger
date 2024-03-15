@@ -14,20 +14,20 @@ dependencies from the project and even can be utilized in your CI/CD pipeline.
 Add it to dev dependencies:
 
 ```console
-dart pub add --dev flavors_yaml_manager
+dart pub add --dev flavors_yaml_merger
 ```
 
 Or with flutter using:
 
 ```console
-flutter pub add --dev flavors_yaml_manager
+flutter pub add --dev flavors_yaml_merger
 ```
 
 ###### Activate the tool in dart
 You need to activate it in dart to use it:
 
 ```console
-dart pub global activate flavors_yaml_manager
+dart pub global activate flavors_yaml_merger
 ```
 
 ## Usage
@@ -39,10 +39,10 @@ For basic usage you only need to:
 
 Run this command to merge flavor file
 ```console  
-dart run flavors_yaml_manager -f <flavor>
+dart run flavors_yaml_merger -f <flavor>
 
 # or use the similar command
-dart run flavors_yaml_manager --flavor_name <flavor>
+dart run flavors_yaml_merger --flavor_name <flavor>
 ```
 
 Run this command to restore your main `pubspec.yaml`
@@ -52,26 +52,26 @@ dart run flavors_yaml_merger:restore_backup_yaml
 
 Use the -m flag to enable yaml matcher:
 ```console  
-dart run flavors_yaml_manager -f <flavor> -m
+dart run flavors_yaml_merger -f <flavor> -m
 
 # or use the similar command
-dart run flavors_yaml_manager --matcher true
+dart run flavors_yaml_merger --matcher true
 ```
 
 Use the -b flag to disable the backup of `pubspec.yaml`
 ```console  
-dart run flavors_yaml_manager -f <flavor> -b false
+dart run flavors_yaml_merger -f <flavor> -b false
 
 # This is similar to the following:
-dart run flavors_yaml_manager -f <flavor> --enable_backup false
+dart run flavors_yaml_merger -f <flavor> --enable_backup false
 ```
 
 You can also use your own flavor yaml path and naming scheme by using the following command
 ```console  
-dart run flavors_yaml_manager -f <flavor> -p "path_to_flavor_yaml"
+dart run flavors_yaml_merger -f <flavor> -p "path_to_flavor_yaml"
 
 # This is similar to the following:
-dart run flavors_yaml_manager -f <flavor> --flavor_path "path_to_flavor_yaml"
+dart run flavors_yaml_merger -f <flavor> --flavor_path "path_to_flavor_yaml"
 ```
 
 ### Example: pubspec_dev.yaml
