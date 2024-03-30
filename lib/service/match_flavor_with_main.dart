@@ -107,7 +107,12 @@ void matchFlavorFile({
       }
     }
   } catch (exception) {
-    stderr.writeln(exception);
+    if (exception is RangeError) {
+      stderr.writeln("Couldn't find a block ending comment");
+      stderr.writeln("Did you forget to add the  '# end flavor $flavorName'?");
+    } else {
+      stderr.writeln(exception);
+    }
     exit(2);
   }
 }
