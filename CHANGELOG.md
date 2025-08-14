@@ -1,3 +1,7 @@
+## 1.0.5
+
+- Disable auto yaml backup "Can be enabled by passing -b"
+
 ## 1.0.4
 
 - Matcher: added Error message for missing main yaml annotations
