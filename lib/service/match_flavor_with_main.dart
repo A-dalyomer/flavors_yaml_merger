@@ -92,7 +92,8 @@ void matchFlavorFile({
       for (int j = 0; j < flavorPubspec.length; j++) {
         final YamlWriter yamlWriter = YamlWriter();
         final value = flavorPubspec.entries.elementAt(j).value;
-        final String yamlDoc = yamlWriter.write(value).replaceAll('\'', '');
+        final String yamlDoc =
+            yamlWriter.write(value).replaceAll('\'', '').replaceAll("\"", "");
         blockFound = matchStringBlocks(mainYamlSectionBlock, yamlDoc);
         if (blockFound) {
           break;
