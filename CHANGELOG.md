@@ -1,3 +1,8 @@
+## 1.0.6
+
+- Fix matching yaml blocks due to double quotation handling changes on newer Flutter versions
+- Upgrade dependencies
+
 ## 1.0.5
 
 - Disable auto yaml backup "Can be enabled by passing -b"
