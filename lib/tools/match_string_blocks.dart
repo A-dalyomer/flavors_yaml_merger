@@ -6,9 +6,5 @@ bool matchStringBlocks(String predefinedString, String input) {
   String normalPredefinedString = normalizeString(predefinedString);
   String normalInput = normalizeString(input);
 
-  if (normalPredefinedString == normalInput) {
-    return true;
-  } else {
-    return false;
-  }
+  return normalPredefinedString == normalInput;
 }
